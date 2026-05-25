@@ -45,6 +45,27 @@ python main.py
 | `--width INT`      | `1280`  | Capture width in pixels                      |
 | `--height INT`     | `720`   | Capture height in pixels                     |
 | `--min-confidence FLOAT` | `0.7` | Minimum detection confidence (0–1)       |
+| `--control-mouse`  | off     | Map gestures to mouse actions (see below)    |
+
+## Mouse control
+
+Pass `--control-mouse` to drive the system cursor with your hand:
+
+```bash
+python main.py --control-mouse
+```
+
+| Gesture     | Action                                                          |
+|-------------|-----------------------------------------------------------------|
+| Pointing    | Move the cursor — index fingertip steers the pointer            |
+| Fist        | Press & hold left button — quick fist+release = click, hold = drag |
+| OK          | Right click (fires once each time you enter the OK pose)        |
+| Peace       | Scroll — move hand down to scroll down, up to scroll up         |
+| Open Palm   | Idle / release any held button                                  |
+
+**macOS permission:** mouse control requires Accessibility access. Go to **System Settings → Privacy & Security → Accessibility** and enable your terminal app (Terminal / iTerm / VS Code). Without this, the cursor won't move across the full screen.
+
+Tip: PyAutoGUI's failsafe (abort when cursor hits a corner) is disabled because hand tracking naturally drifts to corners. Quit with `q` or `ESC` in the preview window.
 
 ## Troubleshooting
 
@@ -70,5 +91,5 @@ pytest
 ## Future work
 
 - Replace the rule-based classifier with a trained MLP or lightweight CNN on recorded landmark sequences for more robust gesture recognition.
-- Map gestures to system actions (media controls, window management, mouse pointer).
+- Extend system-action mapping beyond the mouse (media controls, window management, custom hotkeys).
 - Add a recording mode to capture labeled landmark sequences for building a custom training dataset.
